@@ -2,6 +2,7 @@ package Models
 
 import (
 	"fmt"
+    "time"
     "github.com/beego/beego/v2/client/orm"
      _ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -19,9 +20,9 @@ func GetList(take, skip int) (list []Stake) {
 
 	qb, _ := orm.NewQueryBuilder("mysql")
 
-	qb.Select("id", "address", "amount", "Status").
+	qb.Select("id", "address", "amount","status", "created_at").
 		From("stake").
-		Where("status > 1")
+		Where("status > 0")
 
 	qb.OrderBy("amount").Desc().
         Limit(take).Offset(skip)
@@ -29,12 +30,9 @@ func GetList(take, skip int) (list []Stake) {
     sql := qb.String()
 
 
-	num, err := o.Raw(sql).QueryRows(&list)
-	if err == nil {
-	    fmt.Println("error is: ", num)
-	}
+	o.Raw(sql).QueryRows(&list)
 
-	return
+	return list
 }
 
 func GetListNum(skip int, take int) (num int64) {
@@ -45,8 +43,7 @@ func GetListNum(skip int, take int) (num int64) {
 
     qb.Select("count(*) as num").
         From("stake").
-        Where("status > 1").
-        Limit(take).Offset(skip)
+        Where("status > 0")
 
     sql := qb.String()
 
@@ -72,7 +69,9 @@ func ReadAndCreateOrUpdate(address, amount string) (bool){
     } else {
         st.Amount = amount
         st.Status = 1
-        o.Insert(st)
+        timestr := time.Now().Format("2006-01-02 15:04:05")
+        st.CreatedAt = timestr
+        o.Insert(&st)
     }
     return true
 }
@@ -85,19 +84,21 @@ func InsertStaker(address, amount string) {
     st.Address = address
     st.Amount = amount
     st.Status = 1
+    timestr := time.Now().Format("2006-01-0215:04:05")
+    st.CreatedAt = timestr
 
     o.Insert(st)
 
 }
 
-func GetAddressRand(address, amount string) (num int) {
+func GetAddressRand(amount string) (num int) {
     o := orm.NewOrm()
 
     qb, _ := orm.NewQueryBuilder("mysql")
 
     qb.Select("count(*) as num").
         From("stake").
-        Where("status > 1").
+        Where("status > 0").
         And("amount > ?")
 
     sql := qb.String()
@@ -108,7 +109,7 @@ func GetAddressRand(address, amount string) (num int) {
         fmt.Println("user nums: ", num)
     }
 
-    return num
+    return num + 1
     
 }
 

@@ -13,8 +13,16 @@ const PageNum = 50
 
 func (c *ListController) List() {
 	page, _ := c.GetInt("page")
+
+	skip := 0;
+	if page > 1 {
+		skip = page * PageNum;
+	}
 	//services.DoPairsRegister()
-	Model.GetList(PageNum, page)
+	list := Model.GetList(PageNum, skip)
+
+	c.Data["json"] = list
+    c.ServeJSON()
 }
 
 

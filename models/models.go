@@ -1,7 +1,6 @@
 package Models
 
 import (
-	"time"
     "github.com/beego/beego/v2/client/orm"
      _ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -11,7 +10,7 @@ type Stake struct {
     Address     string `orm:"column(address);description(用户地址)" json:"address"`
     Amount      string `orm:"column(amount);description(数量)" json:"amount"`
     Status      uint8  `orm:"column(status);description(状态)" json:"status"`
-    CreatedAt   time.Time `orm:"auto_now_add;type(datetime);description(创建时间)" json:"created_at"`
+    CreatedAt   string `orm:"description(创建时间);column(created_at)" json:"created_at"`
 }
 
 
