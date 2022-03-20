@@ -7,7 +7,7 @@ import (
 
 func init() {
     beego.Router("/", &controllers.MainController{})
-    beego.Router("/list", &controllers.ListController{},"get:List")
-    beego.Router("/stake", &controllers.StakeController{},"get:Stake")
-    beego.Router("/rank", &controllers.StakeController{},"get:Rank")
+    beego.Router("/prestake/list", &controllers.ListController{},"get:List")
+    beego.Router("/prestake/stake", &controllers.StakeController{},"get:Stake")
+    beego.Router("/prestake/rank", &controllers.StakeController{},"get:Rank")
 }
