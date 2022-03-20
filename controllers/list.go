@@ -11,7 +11,7 @@ type ListController struct {
 
 type Res struct{
 	List []Model.Stake `json:"list"`
-	Total int64 `json:"total"`
+	Total int `json:"total"`
 	CurrentPage int `json:"current_page"`
 }
 
@@ -25,14 +25,20 @@ func (c *ListController) List() {
 		skip = page * PageNum;
 	}
 
-	total := Model.GetListNum()
+	total := int(Model.GetListNum())
+	totalPage := 0
+	if total % PageNum > 0 {
+		totalPage = total / PageNum + 1
+	} else {
+		totalPage = total / PageNum
+	}
 	//services.DoPairsRegister()
 	list := Model.GetList(PageNum, skip)
 
 	res := Res{
 		CurrentPage : page,
 		List: list,
-		Total: total,
+		Total: totalPage,
 	}
 
 	c.Data["json"] = &res
