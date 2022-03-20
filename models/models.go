@@ -18,7 +18,7 @@ func init() {
     orm.RegisterDriver("mysql", orm.DRMySQL)
 
     // set default database
-    orm.RegisterDataBase("default", "mysql", "root:@(127.0.0.1)/skp?charset=utf8")
+    orm.RegisterDataBase("default", "mysql", "skp:123456@(103.153.138.204)/skp?charset=utf8")
 
     orm.Debug = true
     // // // register model
