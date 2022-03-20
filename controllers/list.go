@@ -9,6 +9,12 @@ type ListController struct {
 	beego.Controller
 }
 
+type Res struct{
+	List []Model.Stake `json:"list"`
+	Total int64 `json:"total"`
+	CurrentPage int `json:"current_page"`
+}
+
 const PageNum = 50
 
 func (c *ListController) List() {
@@ -18,10 +24,18 @@ func (c *ListController) List() {
 	if page > 1 {
 		skip = page * PageNum;
 	}
+
+	total := Model.GetListNum()
 	//services.DoPairsRegister()
 	list := Model.GetList(PageNum, skip)
 
-	c.Data["json"] = list
+	res := Res{
+		CurrentPage : page,
+		List: list,
+		Total: total,
+	}
+
+	c.Data["json"] = &res
     c.ServeJSON()
 }
 

@@ -35,7 +35,7 @@ func GetList(take, skip int) (list []Stake) {
 	return list
 }
 
-func GetListNum(skip int, take int) (num int64) {
+func GetListNum() (num int64) {
 
     o := orm.NewOrm()
 
