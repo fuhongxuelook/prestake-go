@@ -14,7 +14,6 @@ func (c *StakeController) Stake() {
 	address := c.GetString("address")
 
 	Model.ReadAndCreateOrUpdate(address, amount)
-
 	c.Data["json"] = true
     c.ServeJSON()
 }

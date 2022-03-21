@@ -60,8 +60,11 @@ func GetListNum() (num int64) {
 
 func ReadAndCreateOrUpdate(address, amount string) (bool){
     o := orm.NewOrm()
-    st := Stake{Address: address}
-    if o.Read(&st) == nil {
+    
+    id := GetAddressId(address);
+    st := Stake{Id: id, Address: address}
+
+    if id > 0 && o.Read(&st) == nil {
         st.Amount = amount
         if _, err := o.Update(&st); err == nil {
             return true
@@ -110,7 +113,29 @@ func GetAddressRand(amount string) (num int) {
     }
 
     return num + 1
-    
+}
+
+
+
+func GetAddressId(address string) (num int) {
+    o := orm.NewOrm()
+
+    qb, _ := orm.NewQueryBuilder("mysql")
+
+    qb.Select("id").
+        From("stake").
+        Where("status > 0").
+        And("address = ?")
+
+    sql := qb.String()
+
+
+    err := o.Raw(sql, address).QueryRow(&num)
+    if err == nil {
+        fmt.Println("user nums: ", num)
+    }
+
+    return num 
 }
 
 func ChangeStakeAmount(address, amount string) {
