@@ -35,6 +35,14 @@ func (c *ListController) List() {
 	//services.DoPairsRegister()
 	list := Model.GetList(PageNum, skip)
 
+	num := len(list)
+	if num > 0 {
+		for i := 0; i < num; i++ {
+			length := len(list[i].Amount);
+            list[i].Amount = list[i].Amount[:length - 9]
+        }
+	} 
+
 	res := Res{
 		CurrentPage : page,
 		List: list,
