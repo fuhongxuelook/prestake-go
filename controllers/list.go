@@ -39,6 +39,9 @@ func (c *ListController) List() {
 	if num > 0 {
 		for i := 0; i < num; i++ {
 			length := len(list[i].Amount);
+			if length <= 9 {
+				continue
+			}
             list[i].Amount = list[i].Amount[:length - 9]
         }
 	} 
