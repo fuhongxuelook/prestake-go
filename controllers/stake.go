@@ -21,8 +21,9 @@ func (c *StakeController) Stake() {
 
 func (c *StakeController) Rank() {
 	amount := c.GetString("amount")
+	address := c.GetString("address")
 	
-	rank := Model.GetAddressRand(amount)
+	rank := Model.GetAddressRand(address, amount)
 
 	c.Data["json"] = rank
     c.ServeJSON()

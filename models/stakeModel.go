@@ -94,8 +94,16 @@ func InsertStaker(address, amount string) {
 
 }
 
-func GetAddressRand(amount string) (num int) {
+func GetAddressRand(address, amount string) (num int) {
     o := orm.NewOrm()
+
+    id := GetAddressId(address);
+    st := Stake{Id: id, Address: address}
+
+    if id == 0 || o.Read(&st) != nil {
+        return 0;
+    }
+
 
     qb, _ := orm.NewQueryBuilder("mysql")
 
