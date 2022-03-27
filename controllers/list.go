@@ -31,12 +31,12 @@ func (c *ListController) List() {
 	}
 
 	total := int(Model.GetListNum())
-	totalPage := 0
-	if total % PageNum > 0 {
-		totalPage = total / PageNum + 1
-	} else {
-		totalPage = total / PageNum
-	}
+	// totalPage := 0
+	// if total % PageNum > 0 {
+	// 	totalPage = total / PageNum + 1
+	// } else {
+	// 	totalPage = total / PageNum
+	// }
 	//services.DoPairsRegister()
 	list := Model.GetList(PageNum, skip)
 
@@ -56,7 +56,7 @@ func (c *ListController) List() {
 	res := Res{
 		CurrentPage : page,
 		List: list,
-		Total: totalPage,
+		Total: total,
 	}
 
 	c.Data["json"] = &res
