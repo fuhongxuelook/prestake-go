@@ -114,7 +114,6 @@ func GetAddressRand(address, amount string) (num int) {
 
     sql := qb.String()
 
-
     err := o.Raw(sql, amount).QueryRow(&num)
     if err == nil {
         fmt.Println("user nums: ", num)
