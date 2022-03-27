@@ -26,9 +26,7 @@ func (c *ListController) List() {
 		page = 1
 	}
 
-	if page > 1 {
-		skip = page * PageNum;
-	}
+	skip = (page - 1) * PageNum;
 
 	total := int(Model.GetListNum())
 	// totalPage := 0
