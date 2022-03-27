@@ -48,7 +48,7 @@ func (c *ListController) List() {
 			if length <= 9 {
 				continue
 			}
-            list[i].Amount = list[i].Amount[:length - 9]
+            //list[i].Amount = list[i].Amount[:length - 9]
             list[i].Id = baseId + i + 1
         }
 	} 
