@@ -21,6 +21,11 @@ func (c *ListController) List() {
 	page, _ := c.GetInt("page")
 
 	skip := 0;
+
+	if page <= 0 {
+		page = 1
+	}
+
 	if page > 1 {
 		skip = page * PageNum;
 	}
@@ -36,6 +41,7 @@ func (c *ListController) List() {
 	list := Model.GetList(PageNum, skip)
 
 	num := len(list)
+	baseId := (page - 1) * PageNum;
 	if num > 0 {
 		for i := 0; i < num; i++ {
 			length := len(list[i].Amount);
@@ -43,6 +49,7 @@ func (c *ListController) List() {
 				continue
 			}
             list[i].Amount = list[i].Amount[:length - 9]
+            list[i].Id = baseId + i + 1
         }
 	} 
 
