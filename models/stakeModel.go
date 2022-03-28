@@ -66,6 +66,8 @@ func ReadAndCreateOrUpdate(address string, amount uint64) (bool){
 
     if id > 0 && o.Read(&st) == nil {
         st.Amount = amount
+        timestr := time.Now().Format("2006-01-02 15:04:05")
+        st.CreatedAt = timestr
         if _, err := o.Update(&st); err == nil {
             return true
         }
