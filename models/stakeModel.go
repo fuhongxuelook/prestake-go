@@ -24,7 +24,7 @@ func GetList(take, skip int) (list []Stake) {
 		From("stake").
 		Where("status > 0")
 
-	qb.OrderBy("amount").Desc().
+	qb.OrderBy("amount", "id").Desc().
         Limit(take).Offset(skip)
 
     sql := qb.String()
