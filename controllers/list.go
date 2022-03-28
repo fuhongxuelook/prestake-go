@@ -42,10 +42,6 @@ func (c *ListController) List() {
 	baseId := (page - 1) * PageNum;
 	if num > 0 {
 		for i := 0; i < num; i++ {
-			length := len(list[i].Amount);
-			if length <= 9 {
-				continue
-			}
             //list[i].Amount = list[i].Amount[:length - 9]
             list[i].Id = baseId + i + 1
         }

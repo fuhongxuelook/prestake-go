@@ -58,7 +58,7 @@ func GetListNum() (num int64) {
 }
 
 
-func ReadAndCreateOrUpdate(address, amount string) (bool){
+func ReadAndCreateOrUpdate(address string, amount uint64) (bool){
     o := orm.NewOrm()
     
     id := GetAddressId(address);
@@ -80,7 +80,7 @@ func ReadAndCreateOrUpdate(address, amount string) (bool){
 }
 
 
-func InsertStaker(address, amount string) {
+func InsertStaker(address string, amount uint64) {
     o := orm.NewOrm()
 
     st := new(Stake)
@@ -94,7 +94,7 @@ func InsertStaker(address, amount string) {
 
 }
 
-func GetAddressRand(address, amount string) (num int) {
+func GetAddressRand(address string, amount uint64) (num int) {
     o := orm.NewOrm()
 
     id := GetAddressId(address);

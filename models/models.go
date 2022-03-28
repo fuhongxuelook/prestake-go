@@ -8,7 +8,7 @@ import (
 type Stake struct {
     Id          int    `orm:"column(id)" json:"id"`
     Address     string `orm:"column(address);description(用户地址)" json:"address"`
-    Amount      string `orm:"column(amount);description(数量)" json:"amount"`
+    Amount      uint64 `orm:"column(amount);description(数量)" json:"amount"`
     Status      uint8  `orm:"column(status);description(状态)" json:"status"`
     CreatedAt   string `orm:"description(创建时间);column(created_at)" json:"created_at"`
 }

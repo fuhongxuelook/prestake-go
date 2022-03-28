@@ -10,7 +10,7 @@ type StakeController struct {
 }
 
 func (c *StakeController) Stake() {
-	amount := c.GetString("amount")
+	amount,_ := c.GetUint64("amount")
 	address := c.GetString("address")
 
 	Model.ReadAndCreateOrUpdate(address, amount)
@@ -20,7 +20,7 @@ func (c *StakeController) Stake() {
 
 
 func (c *StakeController) Rank() {
-	amount := c.GetString("amount")
+	amount, _ := c.GetUint64("amount")
 	address := c.GetString("address")
 	
 	rank := Model.GetAddressRand(address, amount)
