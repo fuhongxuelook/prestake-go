@@ -110,8 +110,7 @@ func GetAddressRand(address, amount string) (num int) {
     qb.Select("count(*) as num").
         From("stake").
         Where("status > 0").
-        And("amount > ?").
-        Or("(amount = ? and id > ?)")
+        And("(amount > ? OR (amount = ? AND id < ?))")
 
     sql := qb.String()
 
