@@ -65,9 +65,12 @@ func ReadAndCreateOrUpdate(address string, amount uint64) (bool){
     st := Stake{Id: id, Address: address}
 
     if id > 0 && o.Read(&st) == nil {
-        st.Amount = amount
+        if amount == st.Amount {
+            return false;
+        }
         timestr := time.Now().Format("2006-01-02 15:04:05")
         st.CreatedAt = timestr
+        st.Amount = amount
         if _, err := o.Update(&st); err == nil {
             return true
         }
