@@ -10,4 +10,6 @@ func init() {
     beego.Router("/prestake/list", &controllers.ListController{},"get:List")
     beego.Router("/prestake/stake", &controllers.StakeController{},"get:Stake")
     beego.Router("/prestake/rank", &controllers.StakeController{},"get:Rank")
+    beego.Router("/ido/list", &controllers.IDOListController{},"get:List")
+    beego.Router("/ido/addWL", &controllers.IDOWLController{},"get:AddWl")
 }
